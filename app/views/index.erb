@@ -1,23 +1,40 @@
 <div class="container">
-  <h1>Welcome to Sinatra!</h1>
-  <p>Hello, world!</p>
+  <h1>Welcome to Tni Ass Url</h1>
+  <table>
+    <% if @error == true %>
+    <h4>Whoops that's not a real url!</h4>
+    <% end %>
+    <h2> Insert Url and a title </h2>
+    <form action="/urls" method='POST'>
+      <p>
+        <input type="text" name="title">
+        Title
+      </p>
+      <p>
+        <textarea col="50" rows="2" name="long_url"></textarea>
+        Your long ass Url!
+      </p>
+      <p>
+        <input type="submit" value="tinify">
+      </p>
+    </form>
+  </table>
+</div>
 
+<div class="container">
   <table>
     <tr>
-      <th>File Description</th>
-      <th>File Location</th>
+      <th>Title</th>
+      <th>Short Url</th>
+      <th>Click Count</th>
     </tr>
+    <% Url.find_each do |url| %>
     <tr>
-      <td>This view file</td>
-      <td><code><%= __FILE__.gsub(Sinatra::Application.root, '') %></code></td>
+      <td><%= url.title %></td>
+      <td><a href="/<%= url.short_url %>"><%= url.short_url %></a></td>
+      <td><%= url.click_count %></td>
     </tr>
-    <tr>
-      <td>The layout file</td>
-      <td><code><%= File.expand_path('../layout.erb', __FILE__).gsub(Sinatra::Application.root, '') %></code></td>
-    </tr>
-    <tr>
-      <td>The current controller</td>
-      <td><code><%= File.expand_path('../../controllers/index.rb', __FILE__).gsub(Sinatra::Application.root, '') %></code></td>
-    </tr>
+    <% end %>
+    
   </table>
 </div>
